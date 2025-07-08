@@ -12,11 +12,19 @@ public class GetLocalIPPlugin extends Plugin {
     private GetLocalIP implementation = new GetLocalIP();
 
     @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
-
-        JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
-        call.resolve(ret);
+    public void getLocalIP(PluginCall call) {
+        try {
+            String ip = implementation.getLocalIP(getContext());
+            
+            JSObject ret = new JSObject();
+            if (ip != null) {
+                ret.put("ip", ip);
+                call.resolve(ret);
+            } else {
+                call.reject("Unable to determine local IP address. Make sure you are connected to WiFi.");
+            }
+        } catch (Exception e) {
+            call.reject("Error getting local IP: " + e.getMessage(), e);
+        }
     }
 }

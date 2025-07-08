@@ -11,9 +11,25 @@ npx cap sync
 
 ## API
 
-<docgen-index></docgen-index>
+<docgen-index>
+
+* [`getLocalIP()`](#getlocalip)
+
+</docgen-index>
 
 <docgen-api>
-<!-- run docgen to generate docs from the source -->
-<!-- More info: https://github.com/ionic-team/capacitor-docgen -->
+<!--Update the source file JSDoc comments and rerun docgen to update the docs below-->
+
+### getLocalIP()
+
+```typescript
+getLocalIP() => Promise<{ ip: string; }>
+```
+
+Get the local IP address of the device
+
+**Returns:** <code>Promise&lt;{ ip: string; }&gt;</code>
+
+--------------------
+
 </docgen-api>

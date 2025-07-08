@@ -10,14 +10,17 @@ public class GetLocalIPPlugin: CAPPlugin, CAPBridgedPlugin {
     public let identifier = "GetLocalIPPlugin"
     public let jsName = "GetLocalIP"
     public let pluginMethods: [CAPPluginMethod] = [
-        CAPPluginMethod(name: "echo", returnType: CAPPluginReturnPromise)
+        CAPPluginMethod(name: "getLocalIP", returnType: CAPPluginReturnPromise)
     ]
     private let implementation = GetLocalIP()
 
-    @objc func echo(_ call: CAPPluginCall) {
-        let value = call.getString("value") ?? ""
-        call.resolve([
-            "value": implementation.echo(value)
-        ])
+    @objc func getLocalIP(_ call: CAPPluginCall) {
+        if let ip = implementation.getLocalIP() {
+            call.resolve([
+                "ip": ip
+            ])
+        } else {
+            call.reject("Unable to determine local IP address")
+        }
     }
 }
