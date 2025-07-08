@@ -1,6 +1,6 @@
 {
   "name": "capacitor-getlocalip",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "GetLocalIP is a cross-platform plugin that enables your app to retrieve the device's local IP address on both Android and iOS. This utility is ideal for apps that require network information for connectivity, diagnostics, or device identification within a local network.",
   "type": "module",
   "main": "dist/plugin.cjs.js",

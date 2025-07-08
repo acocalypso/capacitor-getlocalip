@@ -20,9 +20,13 @@ import Foundation
                 // Check interface name - focus on en0 (WiFi interface) first, then fallback to other interfaces
                 let name = String(cString: interface.ifa_name)
                 
-                // Convert interface address to string
-                let addr = interface.ifa_addr.assumingMemoryBound(to: sockaddr_in.self)
-                let addressString = String(cString: inet_ntoa(addr.pointee.sin_addr))
+                // Convert interface address to string using safer approach
+                var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+                getnameinfo(interface.ifa_addr, socklen_t(interface.ifa_addr.pointee.sa_len),
+                           &hostname, socklen_t(hostname.count),
+                           nil, socklen_t(0), NI_NUMERICHOST)
+                
+                let addressString = String(cString: hostname)
                 
                 // Check if it's a valid IP address and not loopback
                 if !addressString.isEmpty && addressString != "127.0.0.1" && addressString != "0.0.0.0" {
